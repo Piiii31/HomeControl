@@ -2,8 +2,10 @@ import { View, FlatList, StyleSheet, TouchableOpacity, Text } from 'react-native
 import React from 'react';
 import ImageComponent from './ImageComponent';
 import { Ionicons } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
 
 const Devices = () => {
+    const navigation = useNavigation();
     const data = [
         { id: '1', image: '' },
         { id: '2', image: 'image2.jpg' },
@@ -16,7 +18,8 @@ const Devices = () => {
     );
 
     const AddPress = () => {
-        // Define what should happen when the button is pressed
+        (navigation.navigate as any)('AddNewDevice');
+
     };
 
     return (
@@ -55,7 +58,7 @@ const styles = StyleSheet.create({
     },
     Text: {
         color: 'white',
-        fontSize: 15,
+        fontSize: 14,
         fontWeight: 'bold',
         alignItems :'center',
         textAlign: 'center',

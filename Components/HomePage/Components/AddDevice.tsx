@@ -1,10 +1,13 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
 
 const AddDevice = () => {
+    const navigation = useNavigation();
+
     const AddPress = () => {
-        // Define what should happen when the button is pressed
+        (navigation.navigate as any)('AddNewDevice');
     };
 
     return (
