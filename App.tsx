@@ -5,6 +5,7 @@ import { createStackNavigator, CardStyleInterpolators } from '@react-navigation/
 import Login from './Components/Login/Login';
 import HomePage from './Components/HomePage/HomePage';
 import AddNewDevice from './Components/Form/AddNewDevice';
+import VideoESP from './Components/VideoESP';
 
 const Stack = createStackNavigator();
 
@@ -24,6 +25,7 @@ function App() {
         <Stack.Screen name="Login" component={Login} options={{headerShown:false}}/>
         <Stack.Screen name="HomePage" component={HomePage} options={{headerShown:false}}/>
         <Stack.Screen name="AddNewDevice" component={AddNewDevice} options={{ headerShown: true, title: ' New Device' }}/>
+        <Stack.Screen name="VideoESP" component={VideoESP} options={{ headerShown: true }}/>
       </Stack.Navigator>
     </NavigationContainer>
   );

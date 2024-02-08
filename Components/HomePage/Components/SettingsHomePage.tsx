@@ -2,14 +2,22 @@ import { View, Text,StyleSheet,TouchableOpacity } from 'react-native'
 import React from 'react'
 import FontAwesome6 from 'react-native-vector-icons/FontAwesome6';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import { useNavigation } from '@react-navigation/native';
 
 const SettingsHomePage = () => {
+
+    const navigation = useNavigation();
+
+    const GoTv = () => {
+        (navigation.navigate as any)('VideoESP');
+    };
+
     return (
         <View>
 
             <Text style={styles.title}>Settings</Text>
             <View style={styles.borders}>
-            <TouchableOpacity style={styles.settingDevice}>
+            <TouchableOpacity style={styles.settingDevice} onPress={GoTv}>
                 <Text style={{color:'white',fontSize :18,fontWeight :'bold'}}>Device</Text>
                 <FontAwesome6 name="house-laptop" size={30} color="white" />
 
