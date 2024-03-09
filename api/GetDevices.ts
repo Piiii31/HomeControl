@@ -3,6 +3,9 @@ export interface Device {
     name: string;
     type: string;
     user_id: string;
+    deviceLocation: string;
+    receiveNotifications: boolean;
+    image: string;
     // Add more properties as needed
 }
 
@@ -20,7 +23,15 @@ export async function GetDevices(token: string, userId: string): Promise<Device[
         } else {
             const data = await response.json();
             console.log('data:', data);  // Debug log
-            return data.devices; // Assuming 'data' contains an object with a 'devices' property that is an array of devices
+            return data.devices.map((device: any) => ({
+                id: device.id,
+                name: device.name,
+                type: device.type,
+                user_id: device.user_id,
+                deviceLocation: device.deviceLocation,
+                receiveNotifications: device.receiveNotifications,
+                image: device.image
+            })); // Assuming 'data' contains an object with a 'devices' property that is an array of devices
         }
     } catch (error) {
         console.error('Fetch error:', error);  // Log any errors that occur during the fetch request

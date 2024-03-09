@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, FlatList, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, FlatList, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
 import ImageComponent from './ImageComponent';
 import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
@@ -10,19 +10,14 @@ interface DevicesProps {
 }
 
 const Devices: React.FC<DevicesProps> = ({ devices }) => {
-    const navigation = useNavigation();
 
     const renderItem = ({ item }: { item: Device }) => (
-        <ImageComponent image={require('../../../assets/Image.png')} id={item.id} />
+        <ImageComponent image={{ uri: item.image }} id={item.id} />
     );
-
-    const AddPress = () => {
-        (navigation.navigate as any)('AddNewDevice');
-    };
 
     return (
         <View style={styles.container}>
-            <View>
+            <ScrollView>
                 <FlatList
                     data={devices}
                     renderItem={renderItem}
@@ -30,10 +25,8 @@ const Devices: React.FC<DevicesProps> = ({ devices }) => {
                     horizontal={true}
                     showsHorizontalScrollIndicator={false}
                 />
-            </View>
-            <TouchableOpacity style={styles.loginbutton} onPress={AddPress}>
-                <Ionicons name="add" size={30} color="white" />
-            </TouchableOpacity>
+            </ScrollView>
+           
         </View>
     );
 };

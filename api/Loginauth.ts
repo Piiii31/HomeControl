@@ -68,14 +68,14 @@ export async function login(email: string, password: string): Promise<LoginRespo
     }
 }
 
-export async function addDevice(name: string, type: string): Promise<AddDeviceResponse> {
+export async function addDevice(name: string, type: string, deviceLocation: string, receiveNotifications: boolean, image: string): Promise<AddDeviceResponse> {
     const response = await fetch(`${API_URL}/add_device`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`  // Include the token in the Authorization header
         },
-        body: JSON.stringify({name, type}),
+        body: JSON.stringify({name, type, deviceLocation, receiveNotifications, image}),
     });
 
     if (!response.ok) {
