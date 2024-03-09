@@ -1,21 +1,40 @@
-import { View, Text, StyleSheet, TextInput, Touchable, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TextInput, Touchable, TouchableOpacity, NativeSyntheticEvent, TextInputChangeEventData } from 'react-native';
 import { RadioButton } from 'react-native-paper';
 import React, { useState } from 'react';
 import * as ImagePicker from 'expo-image-picker'
 import { ToastAndroid } from 'react-native';
 import * as FileSystem from 'expo-file-system';
 import { useNavigation } from '@react-navigation/native';
+import { addDevice } from '../../api/Loginauth';
+
 const AddNewDevice: React.FC = () => {
-
-
     const navigation = useNavigation();
     const [value, setValue] = useState('yes');
     const [image, setImage] = useState<string | null>(null);
-    const [deviceName, setDeviceName] = useState('');
-    const [deviceType, setDeviceType] = useState('');
+    const [name, setname] = useState('');
+    const [type, setType] = useState('');
     const [deviceLocation, setDeviceLocation] = useState('');
+  
+    const handleAddDevice = async () => {
+      try {
+      // Call addDevice with Name and type as separate arguments
+      await addDevice(name, type);
+      ToastAndroid.show('Device added successfully', ToastAndroid.SHORT);
+      // Reset form values
+      setname('');
+      setType('');
+      setDeviceLocation('');
+      setValue('yes');
+      setImage(null);
+      // Navigate back to the homepage
+      navigation.navigate('HomePage' as never);
+      } catch (error) {
+      console.error('Error adding device:', error);
+      ToastAndroid.show('Error adding device', ToastAndroid.SHORT);
+      }
+    }
 
-
+   
 
 
 
@@ -51,25 +70,13 @@ const pickImage = async () => {
 
 };
 
-const AddDevice = () => {
-  const deviceData = {
-      name: deviceName,
-      type: deviceType,
-      location: deviceLocation,
-      notifications: value,
-      image: image
-  };
-  console.log(deviceData);
-  ToastAndroid.show('Device added successfully', ToastAndroid.SHORT);
-  navigation.goBack();
-}
 
   return (
     <View>
       <Text style={styles.title}>Enter your Device</Text>
         <View>
-        <TextInput style={styles.input} placeholder="Device name" onChangeText={text => setDeviceName(text)} />
-                <TextInput style={styles.input} placeholder="Device Type" onChangeText={text => setDeviceType(text)} />
+        <TextInput style={styles.input} placeholder="Device name" value={name} onChange={(e) => setname(e.nativeEvent.text)} />
+                <TextInput style={styles.input} placeholder="Device Type" value={type} onChange={(e) => setType(e.nativeEvent.text)}/>
                 <TextInput style={styles.input} placeholder="Device Location" onChangeText={text => setDeviceLocation(text)} />
         </View>
         <View>
@@ -96,7 +103,7 @@ const AddDevice = () => {
         <Text style={{color:'white'}}>Upload image</Text>
         </TouchableOpacity>
         </View>
-        <TouchableOpacity style={styles.submit} onPress={AddDevice}>
+        <TouchableOpacity style={styles.submit} onPress={handleAddDevice}>
           <Text style={{color:'white'}}>Submit</Text>
         </TouchableOpacity>
 

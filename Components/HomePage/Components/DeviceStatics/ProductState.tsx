@@ -9,11 +9,11 @@ interface ProductStateProps {
 
 const ProductState: React.FC<ProductStateProps> = ({ imageName, deviceName, state }) => {
   return (
-    <TouchableOpacity style={[styles.container, { margin: 10 }]} >
+    <View style={[styles.container, { margin: 10 }]} >
         <Text style={styles.image}>{imageName}</Text>
         <Text style={{color : 'white',fontSize:18,fontWeight:'bold',marginRight :80}}>{deviceName}</Text>
         <Text style={{color : 'white',fontSize:16}}>{state}</Text>
-    </TouchableOpacity>
+    </View>
   )
 }
 

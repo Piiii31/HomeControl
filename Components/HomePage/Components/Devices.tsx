@@ -1,34 +1,32 @@
-import { View, FlatList, StyleSheet, TouchableOpacity, Text } from 'react-native';
 import React from 'react';
+import { View, FlatList, StyleSheet, TouchableOpacity } from 'react-native';
 import ImageComponent from './ImageComponent';
 import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
+import { Device } from '../../../api/GetDevices';
 
-const Devices = () => {
+interface DevicesProps {
+    devices: Device[];
+}
+
+const Devices: React.FC<DevicesProps> = ({ devices }) => {
     const navigation = useNavigation();
-    const data = [
-        { id: '1', image: '' },
-        { id: '2', image: 'image2.jpg' },
-        { id: '3', image: 'image2.jpg' },
-        // Add more data objects as needed
-    ];
 
-    const renderItem = ({ item }: { item: { id: string, image: string } }) => (
+    const renderItem = ({ item }: { item: Device }) => (
         <ImageComponent image={require('../../../assets/Image.png')} id={item.id} />
     );
 
     const AddPress = () => {
         (navigation.navigate as any)('AddNewDevice');
-
     };
 
     return (
         <View style={styles.container}>
             <View>
                 <FlatList
-                    data={data}
+                    data={devices}
                     renderItem={renderItem}
-                    keyExtractor={(item) => item.id}
+                    keyExtractor={(item) => item.id.toString()} // Ensure key is string
                     horizontal={true}
                     showsHorizontalScrollIndicator={false}
                 />
@@ -44,7 +42,6 @@ const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',
         alignItems: 'center',
-
     },
     loginbutton: {
         justifyContent: 'center',
@@ -61,8 +58,7 @@ const styles = StyleSheet.create({
         fontSize: 14,
         fontWeight: 'bold',
         alignItems :'center',
-        textAlign: 'center',
-        
+        textAlign: 'center',   
     },
 });
 

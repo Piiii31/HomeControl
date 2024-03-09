@@ -1,28 +1,31 @@
 import React, { useState } from 'react';
-import { View, Text, Switch, StyleSheet, ActivityIndicator } from 'react-native';
+import { View, Text, Switch, StyleSheet, ActivityIndicator, Button, Linking } from 'react-native';
 import { WebView } from 'react-native-webview';
 import ToggleSwitch from 'toggle-switch-react-native';
 
 const VideoESP: React.FC = () => {
     const [isDeviceOn, setIsDeviceOn] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
-    const cameraIpAddress = 'http://192.168.1.128';
+    const cameraIpAddress = 'http://192.168.50.23:5000';
 
     const handleSwitchToggle = () => {
         setIsDeviceOn((prevValue) => !prevValue);
+        fetch('http://192.168.50.104/send-ir', { method: 'GET', mode: 'no-cors' });
     };
 
     const handleWebViewLoad = () => {
         setIsLoading(false);
     };
 
+    
+
     return (
         <View style={styles.container}>
-            {isLoading}
-            <View style={styles.webViewContainer}>
+            {isLoading && <ActivityIndicator />}
+            <View style={[styles.webViewContainer]}>
                 <WebView
                     style={styles.webView}
-                    source={{ uri: `${cameraIpAddress}/480x320.mjpeg` }}
+                    source={{ uri: cameraIpAddress }}
                     onLoad={handleWebViewLoad}
                 />
             </View>
@@ -30,14 +33,14 @@ const VideoESP: React.FC = () => {
             <View style={styles.switchContainer}>
                 <Text>Device Status:</Text>
                 <ToggleSwitch
-        
-                    isOn={isDeviceOn} // Updated prop here
+                    isOn={isDeviceOn}
                     onColor="#e89434"
                     offColor="grey"
                     size="large"
-                    onToggle={handleSwitchToggle} // Updated event handler here
+                    onToggle={handleSwitchToggle} // Fix: Pass a single function to the onToggle prop
                 />
             </View>
+            
         </View>
     );
 };
@@ -47,7 +50,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
     },
     webViewContainer: {
-        marginTop:30,
+        marginTop: 30,
         padding: 10,
         width: '100%',
         borderRadius: 480 / 320,
@@ -65,7 +68,6 @@ const styles = StyleSheet.create({
         marginLeft: 20,
     },
     switchContainer: {
-      
         flexDirection: 'row',
         gap: 20,
         alignItems: 'center',

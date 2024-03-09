@@ -1,98 +1,100 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, TextInput, TouchableOpacity, Button, StyleSheet, ScrollView } from 'react-native';
 import AndDesign from 'react-native-vector-icons/AntDesign';
+import { register } from '../../api/Loginauth';  // import the new API function
 import { useNavigation } from '@react-navigation/native';
-import { login } from '../../api/Loginauth';  // import the new API function
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const Login = () => {
-    const navigation = useNavigation();
+const SignUp = () => {
+    const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
+    const navigation = useNavigation();
 
-
-    
-
-    const handleLogin = async () => {
-        const response = await login(email, password);  // use email instead of username
+    const handleSignUp = async () => {
+        if (password !== confirmPassword) {
+            alert("Passwords do not match");
+            return;
+        }
+        const response = await register(username, email, password);  // include username
         if (response && response.status === 'ok') { // Add null check for response
-            await AsyncStorage.setItem('user', JSON.stringify(response));
             navigation.navigate('HomePage' as never);
         } else {
-            console.error('Login failed');
+            alert("Registration failed");
         }
     };
-    const handleSignUp = () => {
-        navigation.navigate('SignUp' as never);
-    }
 
     return (
-        <View style={styles.container}>
+        <ScrollView style={styles.container}>
             <View style={styles.allheader}>
                 <Text style={styles.header}>Smart Home Control</Text>
                 <Text style={styles.underheader}>Control and manage your smart home devices with ease</Text>
             </View>
-            <Text style={styles.login}>Log in</Text>
+            <Text style={styles.login}>Sign Up</Text>
             <View>
                 <Text style={styles.Text}>Username</Text>
                 <View style={styles.input}>
                     <AndDesign name="user" size={20} color="#000" />
                     <TextInput
                         placeholder="Enter your username"
+                        value={username}
+                        onChangeText={setUsername}
+                    />
+                </View>
+                <Text style={styles.Text}>Email</Text>
+                <View style={styles.input}>
+                    <AndDesign name="mail" size={20} color="#000" />
+                    <TextInput
+                        placeholder="Enter your email"
                         value={email}
                         onChangeText={setEmail}
                     />
                 </View>
-                <View>
-                    <View style={styles.password}>
-                        <Text style={styles.Text}>Password</Text>
-                        <Text style={styles.Text}>Forgot Your password?</Text>
-                    </View>
-                    <View style={styles.input}>
-                        <AndDesign name="lock" size={20} color="#000" />
-                        <TextInput
-                            placeholder="Enter your password"
-                            secureTextEntry={true}
-                            value={password}
-                            onChangeText={setPassword}
-                        />
-                    </View>
+                <Text style={styles.Text}>Password</Text>
+                <View style={styles.input}>
+                    <AndDesign name="lock" size={20} color="#000" />
+                    <TextInput
+                        placeholder="Enter your password"
+                        secureTextEntry={true}
+                        value={password}
+                        onChangeText={setPassword}
+                    />
                 </View>
-                <TouchableOpacity onPress={handleLogin}>
+                <Text style={styles.Text}>Confirm Password</Text>
+                <View style={styles.input}>
+                    <AndDesign name="lock" size={20} color="#000" />
+                    <TextInput
+                        placeholder="Confirm your password"
+                        secureTextEntry={true}
+                        value={confirmPassword}
+                        onChangeText={setConfirmPassword}
+                    />
+                </View>
+                <TouchableOpacity onPress={handleSignUp}>
                     <View style={styles.loginbutton}>
-                        <Text style={styles.Textlogin}>Log in</Text>
+                        <Text style={styles.Textlogin}>Sign Up</Text>
                     </View>
                 </TouchableOpacity>
-                <View style={styles.noaccount}>
-                    <Text style={{ color: "grey" }}>Don't have an account? </Text>
-                    <TouchableOpacity onPress={handleSignUp}>
-                        <Text style={{ color: "black", fontWeight: "bold", fontSize: 16 }}>Sign up</Text>
-                    </TouchableOpacity>
-                </View>
             </View>
-        </View>
+        </ScrollView>
     );
 };
 
+
 const styles = StyleSheet.create({
-    // Add your styles here
     container: {
         flex: 1,
         backgroundColor: '#fff',
-
     },
     allheader: {
         alignItems: 'center',
         justifyContent: 'center',
-
-
     },
     header: {
         marginTop: 100,
         fontSize: 24,
         fontWeight: 'bold',
     },
-
     underheader: {
         fontSize: 12,
         fontWeight: 'normal',
@@ -103,9 +105,8 @@ const styles = StyleSheet.create({
         color: '#030303',
         fontSize: 32,
         fontWeight: 'bold',
-        lineHeight: 42
+        lineHeight: 42,
     },
-
     input: {
         flexDirection: 'row',
         alignItems: 'center',
@@ -120,13 +121,6 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: 'grey',
         borderRadius: 20,
-
-    },
-    password: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-
     },
     Text: {
         marginTop: 30,
@@ -148,17 +142,6 @@ const styles = StyleSheet.create({
         fontSize: 16,
         fontWeight: 'bold',
     },
-    noaccount: {
+});
 
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginTop: 70,
-        gap: 50,
-    },
-
-
-})
-
-
-export default Login
+export default SignUp;
