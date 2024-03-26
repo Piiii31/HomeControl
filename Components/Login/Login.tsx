@@ -46,7 +46,7 @@ const Login = () => {
                 <View>
                     <View style={styles.password}>
                         <Text style={styles.Text}>Password</Text>
-                        <Text style={styles.Text}>Forgot Your password?</Text>
+                       
                     </View>
                     <View style={styles.input}>
                         <AndDesign name="lock" size={20} color="#000" />
@@ -130,6 +130,7 @@ const styles = StyleSheet.create({
     },
     Text: {
         marginTop: 30,
+        width: 100,
         marginLeft: 20,
         marginEnd: 20,
         color: 'grey',

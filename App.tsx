@@ -1,4 +1,3 @@
-
 import WelcomePage from './Components/WelcomePage/WelcomePage';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator, CardStyleInterpolators } from '@react-navigation/stack';
@@ -6,8 +5,11 @@ import Login from './Components/Login/Login';
 import HomePage from './Components/HomePage/HomePage';
 import AddNewDevice from './Components/Form/AddNewDevice';
 import VideoESP from './Components/ESPCamera/VideoESP';
-import { QueryClient, QueryClientProvider } from 'react-query'; // Add this import statement
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import SignUp from './Components/SignUp/SignUp';
+import ConnectWifi from './Components/Form/ConnectWifi';
+import IRCodeDetails from './Components/FetchIrcodes/IRCodeDetails';
+import VideoESPFull from './Components/ESPCamera/VideoEspFull';
 
 const Stack = createStackNavigator();
 
@@ -26,12 +28,18 @@ function App() {
             cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS
           }}
         >
+          
           <Stack.Screen name="Home" component={WelcomePage} options={{headerShown:false}}/>
           <Stack.Screen name="SignUp" component={SignUp} options={{headerShown:false}}/>
           <Stack.Screen name="Login" component={Login} options={{headerShown:false}}/>
           <Stack.Screen name="HomePage" component={HomePage} options={{headerShown:false}}/>
+          <Stack.Screen name="IRCodeDetails" component={IRCodeDetails} />
           <Stack.Screen name="AddNewDevice" component={AddNewDevice} options={{ headerShown: true, title: ' New Device' }}/>
+          <Stack.Screen name="ConnectWifi" component={ConnectWifi} options={{headerShown:false}}/>
           <Stack.Screen name="VideoESP" component={VideoESP} options={{ headerShown: true }}/>
+          <Stack.Screen name="VideoESPFull" component={VideoESPFull} options={{ headerShown: false }}/>
+          
+          
         </Stack.Navigator>
       </NavigationContainer>
     </QueryClientProvider>

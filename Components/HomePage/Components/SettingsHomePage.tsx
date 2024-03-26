@@ -9,7 +9,7 @@ const SettingsHomePage = () => {
     const navigation = useNavigation();
 
     const GoTv = () => {
-        (navigation.navigate as any)('VideoESP');
+        (navigation.navigate as any)('VideoESPFull');
     };
 
     return (

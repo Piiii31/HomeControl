@@ -6,12 +6,9 @@ import ToggleSwitch from 'toggle-switch-react-native';
 const VideoESP: React.FC = () => {
     const [isDeviceOn, setIsDeviceOn] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
-    const cameraIpAddress = 'http://192.168.50.23:5000';
+    const cameraIpAddress = 'http://192.168.1.138:5000';
 
-    const handleSwitchToggle = () => {
-        setIsDeviceOn((prevValue) => !prevValue);
-        fetch('http://192.168.50.104/send-ir', { method: 'GET', mode: 'no-cors' });
-    };
+    
 
     const handleWebViewLoad = () => {
         setIsLoading(false);
@@ -21,23 +18,14 @@ const VideoESP: React.FC = () => {
 
     return (
         <View style={styles.container}>
-            {isLoading && <ActivityIndicator />}
+            
             <View style={[styles.webViewContainer]}>
                 <WebView
                     style={styles.webView}
                     source={{ uri: cameraIpAddress }}
                     onLoad={handleWebViewLoad}
-                />
-            </View>
-            <Text style={styles.deviceName}>Device Name</Text>
-            <View style={styles.switchContainer}>
-                <Text>Device Status:</Text>
-                <ToggleSwitch
-                    isOn={isDeviceOn}
-                    onColor="#e89434"
-                    offColor="grey"
-                    size="large"
-                    onToggle={handleSwitchToggle} // Fix: Pass a single function to the onToggle prop
+                    focusable={true}
+                    
                 />
             </View>
             
@@ -51,15 +39,17 @@ const styles = StyleSheet.create({
     },
     webViewContainer: {
         marginTop: 30,
-        padding: 10,
-        width: '100%',
+        marginLeft: 10,
+        width: 400,
         borderRadius: 480 / 320,
         aspectRatio: 480 / 320,
         backgroundColor: '',
     },
     webView: {
+        width: '100%',
+        height: '100%',
         flex: 1,
-        backgroundColor: 'black',
+        backgroundColor: 'white',
     },
     deviceName: {
         fontSize: 18,

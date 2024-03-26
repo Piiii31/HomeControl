@@ -9,12 +9,12 @@ const Notfications = () => {
           
           <View style={styles.text}>
           <Text style={{color : 'white',fontSize :15,fontWeight:'bold'}}>Device</Text>
-            <Text style={{color : 'white',fontSize :14}}>Stay informed about</Text>
+            <Text style={{color : 'white',fontSize :14, width:150}}>Stay informed about</Text>
           
            
         </View>
         <TouchableOpacity style={styles.button}>
-            <Text style={{color : 'white'}}>Settings</Text>
+            <Text style={{color : 'white',width:100,textAlign:"center"}}>Settings</Text>
         </TouchableOpacity>
         
         
@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         marginEnd: 10,
-        marginStart: 20,
+        marginStart: 10,
     },
     text: {
         flexDirection: 'column',
@@ -41,12 +41,13 @@ const styles = StyleSheet.create({
         color: 'white',
     },
     button: {
+        
         backgroundColor: 'black',
         padding: 15,
         borderRadius: 50,
         width: 100,
         alignItems: 'center',
-        marginRight: 26,
+        marginRight: 50,
     },
     image :{
         backgroundColor : 'white',
@@ -55,6 +56,7 @@ const styles = StyleSheet.create({
         borderRadius : 50,
         textAlign : 'center',
         color : 'black',
+        marginRight : 10,
         marginLeft : 20,
         marginBottom : 20,
         

@@ -1,3 +1,8 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useQuery } from '@tanstack/react-query';
+import axios from 'axios';
+
+
 export interface Device {
     id: string;
     name: string;
@@ -8,33 +13,35 @@ export interface Device {
     image: string;
     // Add more properties as needed
 }
+export const getDevices = async (): Promise<Device[]> => {
+    // Retrieve the user id and token from AsyncStorage
+    const token = await AsyncStorage.getItem('token');
+    const userId = await AsyncStorage.getItem('userid');
 
-export async function GetDevices(token: string, userId: string): Promise<Device[] | undefined> {
-    try {
-        const response = await fetch(`http://192.168.1.121:8000/get-devices/${userId}`, {
-            method: 'GET', // Explicitly specify the GET method
-            headers: {
-                'Authorization': `Bearer ${token}`
-            }
-        });
-        if (!response.ok) {
-            console.error('HTTP error', response.status);  // Log the HTTP status if it's not ok
-            return undefined;
-        } else {
-            const data = await response.json();
-            console.log('data:', data);  // Debug log
-            return data.devices.map((device: any) => ({
-                id: device.id,
-                name: device.name,
-                type: device.type,
-                user_id: device.user_id,
-                deviceLocation: device.deviceLocation,
-                receiveNotifications: device.receiveNotifications,
-                image: device.image
-            })); // Assuming 'data' contains an object with a 'devices' property that is an array of devices
+    const response = await axios.get(`https://djangobackend-seven.vercel.app/get-devices/${userId}`, {
+        headers: {
+            'Authorization': `Bearer ${token}`
         }
-    } catch (error) {
-        console.error('Fetch error:', error);  // Log any errors that occur during the fetch request
-        return undefined;
-    }
+    });
+
+    return response.data.devices.map((device: any) => ({
+        id: device.id,
+        name: device.name,
+        type: device.type,
+        user_id: device.user_id,
+        deviceLocation: device.deviceLocation,
+        receiveNotifications: device.receiveNotifications,
+        image: device.image
+    }));
+};
+
+export const useDevices = () => {
+    // Retrieve the user id from AsyncStorage
+    const userId = AsyncStorage.getItem('userid');
+
+    return useQuery({
+        queryKey: ['devices', userId],
+        queryFn: getDevices,
+        initialData: [] // Add initialData property with an empty array
+    });
 };
