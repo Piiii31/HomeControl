@@ -3,6 +3,7 @@ import { View, Text, Button,StyleSheet, Touchable, TouchableOpacity } from 'reac
 import AndDesign from 'react-native-vector-icons/AntDesign';
 import VideoESP from '../ESPCamera/VideoESP';
 import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const IRCodeDetails = ({ route }: { route: any }) => {
     const { device } = route.params;
@@ -28,10 +29,12 @@ const IRCodeDetails = ({ route }: { route: any }) => {
 
     const sendIRCode = async (code: number, irCodeId: number) => {
         try {
-            // Send the IR code to the ESP32-CAM
-            
 
-                        const response = await fetch(`https://1a0a-196-235-211-66.ngrok-free.app/send-ir`, {
+            
+            // Send the IR code to the ESP32-CAM
+
+
+                        const response = await fetch(`https://lightly-huge-mantis.ngrok-free.app/send-ir`, {
                         method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -64,19 +67,34 @@ const IRCodeDetails = ({ route }: { route: any }) => {
     };
 
     const handlePower = () => {
-        sendIRCode(irCodes[0]?.code, irCodes[0]?.id);
+        const powerCode = irCodes.find(code => code.functionality === 'power');
+        if (powerCode) {
+            sendIRCode(powerCode.code, powerCode.id);
+        
+          
+            
+        }
     };
-
+    
     const handleMute = () => {
-        sendIRCode(irCodes[1]?.code, irCodes[1]?.id);
+        const muteCode = irCodes.find(code => code.functionality === 'mute');
+        if (muteCode) {
+            sendIRCode(muteCode.code, muteCode.id);
+        }
     };
-
+    
     const handleVolumeUp = () => {
-        sendIRCode(irCodes[2]?.code, irCodes[2]?.id);
+        const volumeUpCode = irCodes.find(code => code.functionality === 'volume_up');
+        if (volumeUpCode) {
+            sendIRCode(volumeUpCode.code, volumeUpCode.id);
+        }
     };
-
+    
     const handleVolumeDown = () => {
-        sendIRCode(irCodes[3]?.code, irCodes[3]?.id);
+        const volumeDownCode = irCodes.find(code => code.functionality === 'volume_down');
+        if (volumeDownCode) {
+            sendIRCode(volumeDownCode.code, volumeDownCode.id);
+        }
     };
 
     return (
@@ -84,7 +102,7 @@ const IRCodeDetails = ({ route }: { route: any }) => {
             <VideoESP />
          <View style={style.stylename} >
             <Text style={style.deviceName}>Device: </Text>
-            <Text>{device.name}</Text>
+            <Text>{device.name} </Text>
          
         </View>   
         

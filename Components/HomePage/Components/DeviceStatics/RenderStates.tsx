@@ -1,7 +1,10 @@
 import { View, Text, StyleSheet, FlatList } from 'react-native';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import ProductState from './ProductState';
 import { Device } from '../../../../api/GetDevices';
+import axios from 'axios';
+import { useQuery } from 'react-query';
+import { fetchPowerColumn } from '../../../../api/RenderState';
 
 interface DevicesProps {
   devices: Device[];
@@ -12,6 +15,28 @@ export interface RenderStatesProps {
 
 
 
+
+const ItemComponent: React.FC<{ item: Device }> = ({ item }) => {
+ 
+  
+  const { data: state = '', refetch } = useQuery(['powerColumn', item.user_id, item.id], () => fetchPowerColumn(item.user_id, item.id), {
+    initialData: '',
+    
+    
+    
+     // Refetch the data every 5 seconds
+});
+  const imageForState0 = require('../../../../assets/red.png'); // Replace with your actual image path
+  const imageForOtherState = require('../../../../assets/green.png'); // Replace with your actual image path
+
+  const imageSource = state === 0 ? imageForState0 : imageForOtherState;
+
+    console.log('state', state);
+
+    // Replace with your actual component
+    return <ProductState  device={item} deviceName={item.name} state={imageSource} />;
+};
+
 const RenderStates: React.FC<RenderStatesProps> = ({ data }) => {
   return (
     <View>
@@ -19,9 +44,7 @@ const RenderStates: React.FC<RenderStatesProps> = ({ data }) => {
       <FlatList
         data={data}
         keyExtractor={(item) => item.id}
-        renderItem={({ item }) => (
-          <ProductState imageName={item.name} deviceName={item.name} state={item.type} />
-        )}
+        renderItem={({ item }) => <ItemComponent item={item} />}
       />
     </View>
   );

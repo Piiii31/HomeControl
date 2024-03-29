@@ -1,18 +1,31 @@
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity,Image } from 'react-native'
 import React from 'react'
+import Icon from 'react-native-vector-icons/AntDesign';
+import { useNavigation } from '@react-navigation/native';
 
 interface ProductStateProps {
-  imageName: string;
+  device:any
   deviceName: string;
-  state: string;
+  state: any;
 }
 
-const ProductState: React.FC<ProductStateProps> = ({ imageName, deviceName, state }) => {
+const ProductState: React.FC<ProductStateProps> = ({  device,deviceName, state }) => {
+  
+  const navigation = useNavigation();
+
+  const handlePress = () => {
+    navigation.navigate('DeviceDetails', { device });
+  };
+
+
   return (
     <View style={[styles.container, { margin: 10 }]} >
-        <Text style={styles.image}>{imageName}</Text>
+        <Image source={state} style={styles.image} />
         <Text style={{color : 'white',fontSize:18,fontWeight:'bold',marginRight :80}}>{deviceName}</Text>
-        <Text style={{color : 'white',fontSize:16}}>{state}</Text>
+        <TouchableOpacity onPress={handlePress}>
+        <Icon name="infocirlceo" size={30} color="white" />
+        </TouchableOpacity>
+        
     </View>
   )
 }
@@ -20,11 +33,11 @@ const ProductState: React.FC<ProductStateProps> = ({ imageName, deviceName, stat
 const styles = StyleSheet.create({
     container :{
         flexDirection: 'row',
-        gap: 40,
+        
         backgroundColor: '#e89434',
         borderRadius: 100,
+        justifyContent: 'space-evenly',
         alignItems: 'center',
-        justifyContent: 'center',
         marginEnd: 10,
         marginStart: 10,
         width :350,
@@ -35,8 +48,7 @@ const styles = StyleSheet.create({
         width : 40,
         height : 40,
         borderRadius : 50,
-        textAlign : 'center',
-        color : 'black',
+        
         
         
     }

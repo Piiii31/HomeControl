@@ -42,6 +42,8 @@ export const useDevices = () => {
     return useQuery({
         queryKey: ['devices', userId],
         queryFn: getDevices,
-        initialData: [] // Add initialData property with an empty array
+        initialData: [] ,
+        
     });
 };
+

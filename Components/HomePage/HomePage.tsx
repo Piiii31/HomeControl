@@ -8,10 +8,13 @@ import SettingsHomePage from './Components/SettingsHomePage';
 import RenderStates from './Components/DeviceStatics/RenderStates';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Device, useDevices } from '../../api/GetDevices';
+import { QueryClient, QueryClientProvider } from 'react-query';
 
 const HomePage = () => {
   const [userData, setUserData] = useState(null);
   const [refreshing, setRefreshing] = useState(false);
+
+  const queryClient = new QueryClient();
 
 
   const { data: devices, isLoading, isError, refetch } = useDevices();
@@ -30,6 +33,7 @@ const HomePage = () => {
   }
 
   return (
+    <QueryClientProvider client={queryClient}>
     <ScrollView
       style={{ flexGrow: 1 }}
       refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
@@ -46,6 +50,7 @@ const HomePage = () => {
         <RenderStates data={devices} />
       </View>
     </ScrollView>
+    </QueryClientProvider>
   );
 };
 

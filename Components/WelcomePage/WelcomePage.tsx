@@ -2,6 +2,7 @@ import { View, Text, StyleSheet, Image, Button, TouchableOpacity } from 'react-n
 import React, { useRef } from 'react'
 import AppIntroSlider from 'react-native-app-intro-slider'
 import { useNavigation } from '@react-navigation/native'
+import Icon from 'react-native-vector-icons/AntDesign'
 
 const slides = [
     {
@@ -13,9 +14,9 @@ const slides = [
     
     {
         key: 'slide3',
-        title: 'Slide 3',
-        text: 'Description for slide 3',
-        image: require('../../assets/Image.png'),
+        title: 'Control',
+        text: 'your devices from anywhere',
+        image: require('../../assets/openning.png'),
     },
 ]
 
@@ -34,7 +35,8 @@ const WelcomePage = () => {
                 </TouchableOpacity>
             ) : (
                 <TouchableOpacity style={styles.Skip} onPress={() => navigation.navigate('Login' as never)}>
-                    <Text style={styles.text2}>Skip</Text>
+                    <Text style={styles.text2}>Let's Connect</Text>
+                    <Icon  name="arrowright" size={20} color="white" />
                 </TouchableOpacity>
             )}
         </View>
@@ -68,6 +70,8 @@ const styles = StyleSheet.create({
         marginTop: 20,
     },
     underTitle: {
+        textAlign: 'center',
+        width:"100%",
         fontSize: 18,
         marginTop: 20,
     },
@@ -85,7 +89,9 @@ const styles = StyleSheet.create({
     Skip: {
         width: 335,
         height:56,
-        justifyContent: 'center',
+        flexDirection: 'row',
+        
+        justifyContent: 'space-evenly',
         alignItems: 'center',
         marginTop:50,
         backgroundColor: '#e89434',
@@ -108,6 +114,7 @@ const styles = StyleSheet.create({
 
     },
     text2: {
+        textAlign: 'center',
         color: 'white',
         fontSize: 18,
         fontWeight: 'bold',

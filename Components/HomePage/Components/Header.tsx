@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet,Image } from 'react-native';
 import React from 'react';
 
 const Header = () => {
@@ -10,7 +10,10 @@ const Header = () => {
                 <Text style={styles.textStyle}>Welcome to</Text>
                 <Text style={styles.textStyle1}>Smart Home Control</Text>
                 </View>
-                <Text>The image</Text>
+                <Image
+                        style={styles.imageStyle}
+                        source={require('../../../assets/usericon.png')}
+                    />
             </View>
         </View>
     )
@@ -24,6 +27,7 @@ const styles = StyleSheet.create({
         alignItems : 'center',
         marginTop : 50,
         marginHorizontal : 20,
+        marginBottom : 20,
         
     },
     textStyle : {
@@ -38,6 +42,12 @@ const styles = StyleSheet.create({
     },
     textStyle1:{
         flexDirection:'column'
+    },
+    imageStyle : {
+        marginVertical : 0,
+        width : 50,
+        height : 50,
+        
     }
 })
 
