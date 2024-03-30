@@ -19,6 +19,12 @@ interface AddDeviceResponse {
     status: string;
     user_id: number;
 }
+interface DeleteDeviceResponse {
+    device_id: string;
+    status: number;
+    message: string;
+   
+}
 
 let token: string | null = null; 
 let userid : number | 0 = 0; // Add a variable to store the token
@@ -69,3 +75,21 @@ export async function addDevice(name: string, type: string, deviceLocation: stri
         throw new Error(`HTTP error ${error.response.status}: ${error.response.data}`);
     }
 }
+
+    export async function deleteDevice(deviceId: string): Promise<DeleteDeviceResponse> {
+        try {
+            const token = await AsyncStorage.getItem('token');  // Retrieve the token from AsyncStorage
+            const response = await axios.delete(`${API_URL}/delete_device/${deviceId}/`, {
+                headers: {
+                    'Authorization': `Bearer ${token}`  // Include the token in the Authorization header
+                }
+            });
+            console.log(response.data.message);
+            return response.data; // Add a return statement to return the response data
+        } catch (error) {
+            console.error("Error deleting device: ", error);
+            throw error; // Add a throw statement to propagate the error
+        }
+    };
+   
+ 

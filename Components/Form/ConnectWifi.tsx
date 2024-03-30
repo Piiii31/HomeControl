@@ -3,11 +3,24 @@ import { View, Text } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import WifiUi from './WifiUi';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { QueryClient } from 'react-query';
+import { useDevices } from '../../api/GetDevices';
 
 const ConnectWifi = () => {
   const [responseStatus, setResponseStatus] = useState(0);
   const navigation = useNavigation();
 
+  const [refreshing, setRefreshing] = useState(false);
+
+  const queryClient = new QueryClient();
+
+
+  const { data: devices, isLoading, isError, refetch } = useDevices();
+
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+    refetch().then(() => setRefreshing(false));
+  }, []);
   // Function to send confirmation response to ESP32
   const sendConfirmationResponse = async () => {
     try {
@@ -37,6 +50,8 @@ const ConnectWifi = () => {
       if(response.status === 200) {
         setResponseStatus(response.status);
         navigation.navigate('HomePage' as never);
+        onRefresh();
+
       }
       // Set the response status
     } catch (error) {
