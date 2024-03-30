@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "my-app",
-    "slug": "my-app",
+    "name": "Home Control",
+    "slug": "HomeControl",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/Home.png",
@@ -39,14 +39,14 @@
       "permissions": [
         "android.permission.RECORD_AUDIO"
       ],
-      "package": "com.abderrahmenothman.myapp"
+      "package": "com.abderrahmenothman.HomeControl"
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
     "extra": {
       "eas": {
-        "projectId": "28ede597-368d-4d3b-8df3-72754f57c452"
+        "projectId": "df9283b2-21ee-45fc-bb84-3f13e880e1f6"
       }
     }
   }
