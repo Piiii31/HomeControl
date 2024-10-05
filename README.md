@@ -48,6 +48,13 @@ The following technologies were used to build this project:
 - [PostgreSQL](https://www.postgresql.org/)
 - [ESP32](https://www.esp32.com/)
 
+
+## Related Repositories
+
+- [esp32cam_Stream](https://github.com/Piiii31/esp32cam_Stream) - Streaming frames from ESP32-CAM using Django.
+- [HomeControl-ESP32-Django](https://github.com/Piiii31/HomeControl-ESP32-Django) - Django backend for storing IR signals from ESP32 devices.
+- [HomeControl-ESP32-ESP32CAM](https://github.com/Piiii31/HomeControl-ESP32-ESP32CAM) - ESP32 implementation for receiving IR signals and sending them to ESP32-CAM.
+  
 ## :white_check_mark: Requirements ##
 
 Before starting :checkered_flag:, ensure you have:
@@ -73,11 +80,7 @@ $ npm install
 $ npm start
 
 
-## Related Repositories
 
-- [esp32cam_Stream](https://github.com/Piiii31/esp32cam_Stream) - Streaming frames from ESP32-CAM using Django.
-- [HomeControl-ESP32-Django](https://github.com/Piiii31/HomeControl-ESP32-Django) - Django backend for storing IR signals from ESP32 devices.
-- [HomeControl-ESP32-ESP32CAM](https://github.com/Piiii31/HomeControl-ESP32-ESP32CAM) - ESP32 implementation for receiving IR signals and sending them to ESP32-CAM.
 
 :memo: License
 This project is licensed under the MIT License. For more details, see the LICENSE file.
