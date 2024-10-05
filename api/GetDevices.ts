@@ -18,7 +18,7 @@ export const getDevices = async (): Promise<Device[]> => {
     const token = await AsyncStorage.getItem('token');
     const userId = await AsyncStorage.getItem('userid');
 
-    const response = await axios.get(`https://djangobackend-seven.vercel.app/get-devices/${userId}`, {
+    const response = await axios.get(`https://{your url}/get-devices/${userId}`, {
         headers: {
             'Authorization': `Bearer ${token}`
         }
