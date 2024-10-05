@@ -1,7 +1,7 @@
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const API_URL = 'https://djangobackend-seven.vercel.app';  // replace with your Django server URL
+const API_URL = '';  // replace with your Django server URL
 
 interface RegisterResponse {
     status: string;
