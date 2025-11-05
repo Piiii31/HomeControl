@@ -1,0 +1,5 @@
+- **User Authentication**: Log in or sign up to access the application.
+- **Device Management**: Add and manage home appliance devices.
+- **IR Signal Testing**: Test your remote control using the ESP32 and capture IR signals.
+- **Video Streaming**: View live video streams from the ESP32-CAM.
+- **Remote Control**: Control appliances like televisions and air conditioners from outside your home.

@@ -1,0 +1,6 @@
+{
+  "frontend": ["React Native"],
+  "backend": ["Django"],
+  "database": ["PostgreSQL"],
+  "others": ["ESP32"]
+}

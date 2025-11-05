@@ -1,0 +1,1 @@
+HomeControl is a mobile application that allows users to log in or sign up to manage their home appliance devices. The application enables users to test remote controls using an ESP32 with an IR receiver, capturing IR signals that are returned to the homepage. Users can also view video streams from the ESP32-CAM and control devices like televisions and air conditioners remotely.
